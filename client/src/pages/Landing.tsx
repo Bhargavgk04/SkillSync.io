@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { 
-  Github, 
-  Target, 
-  Zap, 
-  Users, 
-  TrendingUp, 
+import {
+  Github,
+  Target,
+  Zap,
+  Users,
+  TrendingUp,
   Star,
   ArrowRight,
   CheckCircle
@@ -58,7 +58,15 @@ const Landing: React.FC = () => {
                 <Target className="w-12 h-12 text-white" />
               </div>
             </div>
-            
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+              <span className="relative">
+                Skill
+                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent">
+                  Sync
+                </span>
+                <span className="text-blue-600 dark:text-blue-400">.io</span>
+              </span>
+            </h1>
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
               AI-Powered{' '}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -66,13 +74,13 @@ const Landing: React.FC = () => {
               </span>{' '}
               Matching
             </h1>
-            
+
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-              Find GitHub issues that perfectly match your skills and interests. 
-              Our intelligent platform analyzes your profile and recommends 
+              Find GitHub issues that perfectly match your skills and interests.
+              Our intelligent platform analyzes your profile and recommends
               personalized contribution opportunities.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               {user ? (
                 <Link
@@ -91,7 +99,7 @@ const Landing: React.FC = () => {
                   <span>Get Started with GitHub</span>
                 </Link>
               )}
-              
+
               <a
                 href="#features"
                 className="flex items-center justify-center space-x-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-500 dark:hover:border-blue-400 px-8 py-4 rounded-lg text-lg font-medium transition-colors"
@@ -111,7 +119,7 @@ const Landing: React.FC = () => {
               Intelligent Issue Matching
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Our AI analyzes your GitHub profile to understand your skills and preferences, 
+              Our AI analyzes your GitHub profile to understand your skills and preferences,
               then matches you with the perfect contribution opportunities.
             </p>
           </div>
@@ -149,11 +157,11 @@ const Landing: React.FC = () => {
                 Why Choose AI Matcher?
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                Stop wasting time searching through thousands of issues. 
-                Let our AI do the heavy lifting and present you with 
+                Stop wasting time searching through thousands of issues.
+                Let our AI do the heavy lifting and present you with
                 opportunities that truly match your skills and interests.
               </p>
-              
+
               <div className="space-y-4">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-center space-x-3">
@@ -163,7 +171,7 @@ const Landing: React.FC = () => {
                 ))}
               </div>
             </div>
-            
+
             <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-xl">
               <div className="text-center mb-8">
                 <Star className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
@@ -174,7 +182,7 @@ const Landing: React.FC = () => {
                   Join thousands of developers who have found their perfect open source projects.
                 </p>
               </div>
-              
+
               {!user && (
                 <Link
                   to="/login"
@@ -196,10 +204,10 @@ const Landing: React.FC = () => {
             Start Your Open Source Journey Today
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Let AI help you find the perfect issues to contribute to. 
+            Let AI help you find the perfect issues to contribute to.
             Build your portfolio, learn new skills, and make a difference in the open source community.
           </p>
-          
+
           {!user && (
             <Link
               to="/login"

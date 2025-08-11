@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
                 <Target className="w-6 h-6 text-white" />
               </div>
               <span className="font-bold text-xl text-gray-900 dark:text-white">
-                AI Matcher
+                SkillSync.io
               </span>
             </Link>
           </div>
