@@ -106,6 +106,68 @@ router.get('/count', async (req, res) => {
 });
 
 /**
+ * Get all issues (for browse page)
+ */
+router.get('/all', [
+  optionalAuth,
+  query('page').optional().isInt({ min: 1 }),
+  query('limit').optional().isInt({ min: 1, max: 100 })
+], async (req, res) => {
+  try {
+    const { page = 1, limit = 20 } = req.query;
+    const skip = (page - 1) * limit;
+    
+    console.log('[ALL ISSUES] Fetching all issues, page:', page, 'limit:', limit);
+    
+    // Get all active open issues
+    const [issues, total] = await Promise.all([
+      Issue.find({ state: 'open', isActive: true })
+        .sort({ popularity: -1, lastActivity: -1 })
+        .skip(skip)
+        .limit(parseInt(limit)),
+      Issue.countDocuments({ state: 'open', isActive: true })
+    ]);
+    
+    console.log('[ALL ISSUES] Found issues:', issues.length, 'Total:', total);
+    
+    // If user is authenticated, calculate match scores
+    let results = issues;
+    if (req.user) {
+      results = issues.map(issue => ({
+        issue,
+        // Use available scoring function to avoid 500s
+        score: aiService.calculateMatchScore(req.user, issue),
+        reasons: aiService.getMatchReasons(req.user, issue)
+      }));
+    } else {
+      // For non-authenticated users, just return the issues
+      results = issues.map(issue => ({
+        issue,
+        score: 0,
+        reasons: []
+      }));
+    }
+    
+    res.json({
+      success: true,
+      issues: results,
+      pagination: {
+        page: parseInt(page),
+        limit: parseInt(limit),
+        total,
+        hasMore: skip + parseInt(limit) < total
+      }
+    });
+  } catch (error) {
+    console.error('Get all issues error:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to get issues'
+    });
+  }
+});
+
+/**
  * Search issues with filters
  */
 router.get('/search', [

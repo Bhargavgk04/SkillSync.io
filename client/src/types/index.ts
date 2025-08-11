@@ -121,7 +121,6 @@ export interface UserStats {
   totalLanguages: number;
   topLanguages: Language[];
   savedIssuesCount: number;
-  solvedIssuesCount: number;
   joinedDate: string;
   lastActive: string;
   lastAnalyzed: string;

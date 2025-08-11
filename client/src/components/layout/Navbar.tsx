@@ -11,7 +11,8 @@ import {
   X,
   Home,
   BookOpen,
-  Target
+  Target,
+  BookmarkIcon
 } from 'lucide-react';
 
 const Navbar: React.FC = () => {
@@ -22,6 +23,7 @@ const Navbar: React.FC = () => {
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
     { name: 'Browse Issues', href: '/issues', icon: Search },
+    { name: 'Saved', href: '/saved', icon: BookmarkIcon },
     { name: 'Profile', href: '/profile', icon: User },
     { name: 'Settings', href: '/settings', icon: Settings },
   ];

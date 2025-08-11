@@ -6,9 +6,7 @@ import {
   GitFork, 
   Clock, 
   Bookmark,
-  BookmarkCheck,
-  CheckCircle,
-  AlertCircle
+  BookmarkCheck
 } from 'lucide-react';
 import { issuesService } from '../../services/api';
 import { useAuth } from '../../contexts/AuthContext';
@@ -18,22 +16,17 @@ interface IssueCardProps {
   matchScore?: number;
   reasons?: string[];
   showSaveButton?: boolean;
-  showSolvedButton?: boolean;
 }
 
 const IssueCard: React.FC<IssueCardProps> = ({ 
   issue, 
   matchScore, 
   reasons, 
-  showSaveButton = true,
-  showSolvedButton = true 
+  showSaveButton = true
 }) => {
   const { user } = useAuth();
   const [isSaved, setIsSaved] = useState(
     user?.savedIssues.includes(issue._id) || false
-  );
-  const [isSolved, setIsSolved] = useState(
-    user?.solvedIssues.some(solved => solved.issue === issue._id) || false
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -51,22 +44,6 @@ const IssueCard: React.FC<IssueCardProps> = ({
       }
     } catch (error) {
       console.error('Failed to save/unsave issue:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleMarkSolved = async () => {
-    if (!user || isLoading) return;
-    
-    const pullRequestUrl = prompt('Enter the URL of your pull request (optional):');
-    
-    setIsLoading(true);
-    try {
-      await issuesService.markSolved(issue._id, pullRequestUrl || undefined);
-      setIsSolved(true);
-    } catch (error) {
-      console.error('Failed to mark issue as solved:', error);
     } finally {
       setIsLoading(false);
     }
@@ -104,7 +81,7 @@ const IssueCard: React.FC<IssueCardProps> = ({
         <div className="flex-1 min-w-0">
           <div className="flex items-center space-x-2 mb-2">
             <span className="text-sm text-gray-600 dark:text-gray-400">
-              {issue.repository.owner}/{issue.repository.name}
+              {(issue.repository.owner || (issue.repository.fullName && issue.repository.fullName.split('/')[0]) || 'unknown')}/{issue.repository.name}
             </span>
             <span className="text-gray-400">•</span>
             <span className="text-sm text-gray-500 dark:text-gray-500">
@@ -219,17 +196,6 @@ const IssueCard: React.FC<IssueCardProps> = ({
         </a>
         
         <div className="flex items-center space-x-2">
-          {showSolvedButton && !isSolved && (
-            <button
-              onClick={handleMarkSolved}
-              disabled={isLoading}
-              className="flex items-center space-x-1 text-green-600 hover:text-green-700 dark:text-green-400 dark:hover:text-green-300 text-sm"
-              title="Mark as solved"
-            >
-              <CheckCircle className="w-4 h-4" />
-            </button>
-          )}
-          
           {showSaveButton && (
             <button
               onClick={handleSave}
@@ -251,12 +217,6 @@ const IssueCard: React.FC<IssueCardProps> = ({
         </div>
       </div>
       
-      {isSolved && (
-        <div className="mt-3 flex items-center space-x-2 text-green-600 dark:text-green-400 text-sm">
-          <CheckCircle className="w-4 h-4" />
-          <span>Marked as solved</span>
-        </div>
-      )}
     </div>
   );
 };

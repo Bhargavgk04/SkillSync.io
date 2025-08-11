@@ -11,6 +11,7 @@ import Issues from './pages/Issues';
 import Profile from './pages/Profile';
 import Settings from './pages/Settings';
 import AuthCallback from './pages/AuthCallback';
+import Saved from './pages/Saved';
 
 const App: React.FC = () => {
   return (
@@ -37,6 +38,14 @@ const App: React.FC = () => {
                           element={
                             <ProtectedRoute>
                               <Issues />
+                            </ProtectedRoute>
+                          }
+                        />
+                        <Route
+                          path="saved"
+                          element={
+                            <ProtectedRoute>
+                              <Saved />
                             </ProtectedRoute>
                           }
                         />

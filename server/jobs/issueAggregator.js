@@ -262,6 +262,7 @@ class IssueAggregator {
     return {
       name: repo,
       fullName: `${owner}/${repo}`,
+      owner, // <-- Add this line
       description: githubIssue.repository?.description,
       language: githubIssue.repository?.language,
       stars: githubIssue.repository?.stargazers_count || 0,

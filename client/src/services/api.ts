@@ -64,6 +64,9 @@ class ApiService {
     getRecommendations: (page = 1, limit = 20): Promise<PaginatedResponse<IssueMatch>> =>
       this.request(`/issues/recommendations?page=${page}&limit=${limit}`),
 
+    getAllIssues: (page = 1, limit = 20): Promise<PaginatedResponse<IssueMatch>> =>
+      this.request(`/issues/all?page=${page}&limit=${limit}`),
+
     search: (filters: SearchFilters): Promise<PaginatedResponse<IssueMatch | Issue>> => {
       console.log('[API] Searching issues with filters:', filters);
       const params = new URLSearchParams();
