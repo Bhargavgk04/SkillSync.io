@@ -3,8 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { userService } from '../services/api';
 import { DifficultyLevel } from '../types';
 import { 
-  Settings as SettingsIcon, 
-  Bell, 
+  Settings as SettingsIcon,
   Globe, 
   Target,
   Save,
@@ -39,17 +38,6 @@ const Settings: React.FC = () => {
     setPreferences(prev => ({
       ...prev,
       [key]: value
-    }));
-    setSaved(false);
-  };
-
-  const handleNotificationChange = (key: string, value: boolean) => {
-    setPreferences(prev => ({
-      ...prev,
-      notificationSettings: {
-        ...prev.notificationSettings,
-        [key]: value
-      }
     }));
     setSaved(false);
   };
@@ -234,72 +222,6 @@ const Settings: React.FC = () => {
                     </span>
                   </label>
                 ))}
-            </div>
-          </div>
-
-          {/* Notification Settings */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-            <div className="flex items-center space-x-2 mb-6">
-              <Bell className="w-5 h-5 text-yellow-600" />
-              <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
-                Notification Settings
-              </h2>
-            </div>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Choose how you want to be notified:
-            </p>
-            <div className="space-y-4">
-              <label className="flex items-center justify-between">
-                <div>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">Email Notifications</span>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Receive updates via email</p>
-                </div>
-                  <input
-                    type="checkbox"
-                    checked={preferences.notificationSettings.email}
-                    onChange={(e) => handleNotificationChange('email', e.target.checked)}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                </label>
-
-              <label className="flex items-center justify-between">
-                <div>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">Push Notifications</span>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Receive browser notifications</p>
-              </div>
-                <input
-                  type="checkbox"
-                  checked={preferences.notificationSettings.push}
-                  onChange={(e) => handleNotificationChange('push', e.target.checked)}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-              </label>
-
-              <label className="flex items-center justify-between">
-                <div>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">New Matches</span>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Get notified when new issues match your skills</p>
-                </div>
-                  <input
-                    type="checkbox"
-                    checked={preferences.notificationSettings.newMatches}
-                    onChange={(e) => handleNotificationChange('newMatches', e.target.checked)}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                </label>
-
-              <label className="flex items-center justify-between">
-                <div>
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">Weekly Digest</span>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Receive a weekly summary of your activity</p>
-                </div>
-                  <input
-                    type="checkbox"
-                    checked={preferences.notificationSettings.weeklyDigest}
-                    onChange={(e) => handleNotificationChange('weeklyDigest', e.target.checked)}
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                  />
-                </label>
             </div>
           </div>
 

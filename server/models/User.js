@@ -132,4 +132,32 @@ userSchema.methods.hasSkill = function(skillName, minLevel = 'beginner') {
   return userLevel >= requiredLevel;
 };
 
+// Pre-save middleware to update lastAnalyzed when skills change
+userSchema.pre('save', function(next) {
+  if (this.isModified('skills') || this.isModified('languages')) {
+    this.lastAnalyzed = new Date();
+  }
+  next();
+});
+
+// Method to manually update lastAnalyzed
+userSchema.methods.updateAnalysisTimestamp = async function() {
+  this.lastAnalyzed = new Date();
+  return this.save();
+};
+
+// Static method to find users needing analysis
+userSchema.statics.findUsersNeedingAnalysis = async function(daysThreshold = 7) {
+  const cutoffDate = new Date();
+  cutoffDate.setDate(cutoffDate.getDate() - daysThreshold);
+  
+  return this.find({
+    $or: [
+      { lastAnalyzed: { $lt: cutoffDate } },
+      { lastAnalyzed: null }
+    ]
+  });
+};
+
+
 export default mongoose.model('User', userSchema);

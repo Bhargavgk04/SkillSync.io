@@ -160,13 +160,12 @@ async function analyzeUserSkills(user) {
   try {
     console.log(`[AUTH] Starting skill analysis for user: ${user.username}`);
 
-    // Get user repositories
+    // Get user repositories and contributions
     const repositories = await githubService.getUserRepositories(user.username, {
       type: 'all',
       sort: 'updated'
     });
 
-    // Get user contributions
     const contributions = await githubService.getUserContributions(user.username);
 
     // Extract skills and languages
@@ -176,30 +175,16 @@ async function analyzeUserSkills(user) {
       contributions
     );
 
-    console.log(`[AUTH] Updating user ${user.username} with:`, {
-      skillCount: skills.length,
-      languageCount: languages.length
-    });
-
-    // Update user in database
-    const updatedUser = await User.findByIdAndUpdate(
-      user._id,
-      {
-        $set: {
-          skills: skills,
-          languages: languages,
-          lastAnalyzed: new Date()
-        }
-      },
-      { new: true }
-    );
-
-    if (!updatedUser) {
-      throw new Error('Failed to update user with skills');
-    }
+    // Update user with new skills and languages
+    user.skills = skills;
+    user.languages = languages;
+    
+    // Save user - this will trigger the pre-save middleware
+    // that updates lastAnalyzed automatically
+    await user.save();
 
     console.log(`[AUTH] Successfully updated skills for ${user.username}`);
-    return updatedUser;
+    return user;
 
   } catch (error) {
     console.error('[AUTH] Error analyzing user skills:', error);

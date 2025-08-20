@@ -54,12 +54,11 @@ const limiter = rateLimit({
 app.use('/api/', limiter);
 
 // CORS configuration
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:5173",
+  "https://skillsync-io.netlify.app"
+];
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));

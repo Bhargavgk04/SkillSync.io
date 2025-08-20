@@ -80,6 +80,8 @@ router.get('/recommendations', authenticate, async (req, res) => {
       }
     });
 
+    await req.user.updateAnalysisTimestamp();
+
   } catch (error) {
     console.error('[RECOMMENDATIONS] Error:', error);
     res.status(500).json({ success: false, message: 'Failed to get recommendations' });
