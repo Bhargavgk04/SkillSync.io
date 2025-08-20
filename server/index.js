@@ -60,6 +60,21 @@ const allowedOrigins = [
   "https://skillsync-io.netlify.app"
 ];
 
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); // allow request
+      } else {
+        callback(new Error("Not allowed by CORS")); // block request
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
