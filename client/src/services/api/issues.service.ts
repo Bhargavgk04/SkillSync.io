@@ -3,7 +3,7 @@ import { IssueMatch } from '../../types';
 
 class IssuesService extends BaseService {
   constructor() {
-    super('http://localhost:8080');
+    super('https://skillsync-io.onrender.com');
   }
 
   async getRecommendations(page: number = 1, limit: number = 6) {
