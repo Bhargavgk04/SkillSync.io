@@ -45,7 +45,7 @@ SkillSync.io is an intelligent platform that uses AI to match developers with Gi
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/skillsync-io.git
+   git clone https://github.com/RohitShalgar/SkillSync.io.git
    cd skillsync-io
    ```
 
