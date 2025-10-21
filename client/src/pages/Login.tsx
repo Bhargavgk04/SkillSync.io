@@ -30,7 +30,7 @@ const Login: React.FC = () => {
           </div>
           
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Welcome to AI Matcher
+            Welcome to SkillSync
           </h2>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             Sign in with GitHub to find your perfect open source contributions
