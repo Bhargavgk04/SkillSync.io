@@ -72,11 +72,11 @@ class AIService {
         }
       }
 
-      // Ensure we have at least some basic skills
-      if (skills.size === 0) {
-        console.log('[AI SERVICE] No skills detected, adding default skills');
-        this.addDefaultSkills(skills);
-      }
+      // // Ensure we have at least some basic skills
+      // if (skills.size === 0) {
+      //   console.log('[AI SERVICE] No skills detected, adding default skills');
+      //   this.addDefaultSkills(skills);
+      // }
 
       // Calculate final skills and languages
       const finalSkills = Array.from(skills.values()).map(skill => ({
@@ -99,44 +99,44 @@ class AIService {
     } catch (error) {
       console.error('[AI SERVICE] Error extracting skills:', error);
       // Return default skills if extraction fails
-      return this.getDefaultSkillset();
+      // return this.getDefaultSkillset();
     }
   }
 
-  /**
-   * Add default skills when none are detected
-   */
-  addDefaultSkills(skillsMap) {
-    const defaults = [
-      { name: 'javascript', level: 'beginner', confidence: 0.5 },
-      { name: 'html', level: 'beginner', confidence: 0.5 },
-      { name: 'css', level: 'beginner', confidence: 0.5 },
-      { name: 'git', level: 'beginner', confidence: 0.5 }
-    ];
+  // /**
+  //  * Add default skills when none are detected
+  //  */
+  // addDefaultSkills(skillsMap) {
+  //   const defaults = [
+  //     { name: 'javascript', level: 'beginner', confidence: 0.5 },
+  //     { name: 'html', level: 'beginner', confidence: 0.5 },
+  //     { name: 'css', level: 'beginner', confidence: 0.5 },
+  //     { name: 'git', level: 'beginner', confidence: 0.5 }
+  //   ];
 
-    defaults.forEach(skill => 
-      this.addSkill(skillsMap, skill.name, skill.level, skill.confidence, 'default')
-    );
-  }
+  //   defaults.forEach(skill => 
+  //     this.addSkill(skillsMap, skill.name, skill.level, skill.confidence, 'default')
+  //   );
+  // }
 
-  /**
-   * Get default skillset for new users
-   */
-  getDefaultSkillset() {
-    return {
-      skills: [
-        { name: 'javascript', level: 'beginner', confidence: 0.5, source: 'default' },
-        { name: 'html', level: 'beginner', confidence: 0.5, source: 'default' },
-        { name: 'css', level: 'beginner', confidence: 0.5, source: 'default' },
-        { name: 'git', level: 'beginner', confidence: 0.5, source: 'default' }
-      ],
-      languages: [
-        { name: 'JavaScript', percentage: 40, linesOfCode: 0 },
-        { name: 'HTML', percentage: 30, linesOfCode: 0 },
-        { name: 'CSS', percentage: 30, linesOfCode: 0 }
-      ]
-    };
-  }
+  // /**
+  //  * Get default skillset for new users
+  //  */
+  // getDefaultSkillset() {
+  //   return {
+  //     skills: [
+  //       { name: 'javascript', level: 'beginner', confidence: 0.5, source: 'default' },
+  //       { name: 'html', level: 'beginner', confidence: 0.5, source: 'default' },
+  //       { name: 'css', level: 'beginner', confidence: 0.5, source: 'default' },
+  //       { name: 'git', level: 'beginner', confidence: 0.5, source: 'default' }
+  //     ],
+  //     languages: [
+  //       { name: 'JavaScript', percentage: 40, linesOfCode: 0 },
+  //       { name: 'HTML', percentage: 30, linesOfCode: 0 },
+  //       { name: 'CSS', percentage: 30, linesOfCode: 0 }
+  //     ]
+  //   };
+  // }
 
   /**
    * Add skill to skills map with confidence weighting
